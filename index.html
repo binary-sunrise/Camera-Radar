@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- mapbox CDN  -->
+    
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet"/>
+
+    <!--  Geocoder css  -->
+    
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+    <!-- turf js -->
+
+    <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
+
+    <!-- super cluster -->
+
+    <script src="https://unpkg.com/supercluster@8.0.0/dist/supercluster.min.js"></script>
+
+    <!-- custom CSS -->
+    <link href="./style.css" rel="stylesheet"/>
+
+</head>
+<body>
+    <!-- sidebar  -->
+    <div class="sidebar">
+        <div class="heading">
+          <h1>AI Camera</h1>
+        </div>
+        <div id="listings" class="listings"></div>
+    </div>
+
+    <!-- map -->
+    <div id="map" class="map"></div>
+
+
+    <!-- mapbox  -->
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+
+
+    <!-- geocoder -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+
+
+    <!-- Modules -->
+    <script src="./source/map.js" type="Module"></script>
+    
+</body>
+</html>
