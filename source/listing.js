@@ -1,7 +1,6 @@
-import { map } from './map.js';
+
 import { locations } from '../data/AI_camera.js';
-import {flytoLocation ,createPopup ,getBbox } from './utils.js'
-import { geocoder } from './map.js';
+import {flytoLocation ,createPopup ,fitMapBounds } from './utils.js'
 
 
 
@@ -40,8 +39,10 @@ export const createCameraListing = (locations)=>{
 
         if (location.properties.distance) {
         const roundedDistance = Math.round(location.properties.distance * 100) / 100;
-        details.innerHTML += `<div><strong>${roundedDistance} miles away</strong></div>`;
+        details.innerHTML += `<div><strong>${roundedDistance} kilometers away</strong></div>`;
         }
+
+        // handle click for the listing item
 
         link.addEventListener('click',()=>{
             for (const feature of locations.features ){
@@ -62,54 +63,35 @@ export const createCameraListing = (locations)=>{
     }
 }
 
-// sort the list
+export const sortList = (mylocation) => {
+  const options = { units: "kilometers" };
 
-export const sortList = () =>{
-    geocoder.on('result', (event) => {
-        const searchResult = event.result.geometry;
-        // Code for the next step will go here
-        const options = { units: "miles" };
-        for (const location of locations.features) {
-            location.properties.distance = turf.distance(
-            searchResult,
-            location.geometry,
-            options
-          );
-        }
-    
-        locations.features.sort((a, b) => {
-            if (a.properties.distance > b.properties.distance) {
-              return 1;
-            }
-            if (a.properties.distance < b.properties.distance) {
-              return -1;
-            }
-            return 0; // a must be equal to b
-          });
-    
-          const listings = document.getElementById("listings");
-          while (listings.firstChild) {
-            listings.removeChild(listings.firstChild);
-          }
+  // Add distance property to the data using turf
+  locations.features.forEach(location => {
+    location.properties.distance = turf.distance(mylocation, location.geometry, options);
+  });
 
-          createCameraListing(locations);
+  // Sort the list by distance
+  locations.features.sort((a, b) => a.properties.distance - b.properties.distance);
 
+  // Clear the existing list
+  const listings = document.getElementById("listings");
+  while (listings.firstChild) {
+    listings.removeChild(listings.firstChild);
+  }
 
-          const activeListing = document.getElementById(
-            `listing-${locations.features[0].properties.id}`
-          );
-          activeListing.classList.add('active');
+  createCameraListing(locations);
 
+  // Highlight the nearest location in the listing
+  const activeListing = document.getElementById(`listing-${locations.features[0].properties.id}`);
+  if (activeListing) {
+    activeListing.classList.add('active');
+  }
 
+  fitMapBounds(locations, mylocation);
+  createPopup(locations.features[0]);  
+};
 
-          const bbox = getBbox(locations, searchResult);
-          map.fitBounds(bbox, {
-            padding: 100,
-          });
-
-          createPopup(locations.features[0]);
-      });
-}
 
 
 

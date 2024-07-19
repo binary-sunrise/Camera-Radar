@@ -10,7 +10,7 @@ import { addMarkers } from "./marker.js";
 
 export const map = new mapboxgl.Map({
   container: "map",
-  style: "mapbox://styles/mapbox/dark-v11",
+  style: "mapbox://styles/mapbox/navigation-day-v1",
   center: [76.69812, 9.09096],
   zoom: 7.61,
   scrollZoom: true,
@@ -19,10 +19,9 @@ export const map = new mapboxgl.Map({
 // Geolocation control
 export const geolocate = new mapboxgl.GeolocateControl({
   positionOptions: { enableHighAccuracy: true },
-  trackUserLocation: true,
+  trackUserLocation: false,
   showUserHeading: true,
 });
-map.addControl(geolocate, 'bottom-right');
 
 // Geocoding init
 
@@ -50,12 +49,31 @@ map.on("load", () => {
 
   map.addControl(geocoder, "top-left");
 
+  map.addControl(geolocate, 'bottom-right');  
+
   addMarkers();
 
   createCameraListing(locations);
-
-  sortList();
 });
+
+// controller events
+
+  // Event listener for geocoder
+  geocoder.on('result', (event) => {
+    const searchResult = event.result.geometry;
+    sortList(searchResult);
+  });
+
+  // Event listener for geolocate
+  geolocate.on('geolocate', (position) => {
+    const searchResult = {
+      type: 'Point',
+      coordinates: [position.coords.longitude, position.coords.latitude]
+    };
+    sortList(searchResult);
+  });
+
+
 
 //   Click Events
 
@@ -79,3 +97,6 @@ map.on("click", (event) => {
   /* Highlight listing in sidebar (and remove highlight for all other listings) */
   scrollIntoView(clickedPoint);
 });
+
+
+
