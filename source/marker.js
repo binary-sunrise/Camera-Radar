@@ -8,8 +8,8 @@ import { map } from './map.js';
       type: 'geojson',
       data: locations,
       cluster: true,
-      clusterMaxZoom: 14,
-      clusterRadius: 50
+      clusterMaxZoom: 16,
+      clusterRadius: 30
     });
   
     // Load custom marker image
@@ -40,15 +40,15 @@ import { map } from './map.js';
         layout: {
           'text-field': '{point_count_abbreviated}',
           'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-          'text-size': 12,
-          'text-offset': [2, -6], // Offset the text to the top-right of the marker
+          'text-size': 15,
+          'text-offset': [2, -4], // Offset the text to the top-right of the marker
           'text-anchor': 'top-right' // Adjust the anchor as needed
         },
         paint: {
-          'text-color': '#ffffff', // Set text color
-          'text-halo-color': '#32CD32', // Set the halo color to paddy green
-          'text-halo-width': 1.5, // Set the width of the halo
-          'text-halo-blur': 0.5 // Set the halo blur for a smoother appearance
+          'text-color': '#000', // Black text color
+          'text-halo-color': '#c5f587', // Light green halo color
+          'text-halo-width': 8, // Width of the halo to create a pill shape
+          'text-halo-blur': 0.5, // Blur to soften the edges
         }
       });
   

@@ -13,6 +13,7 @@ export const map = new mapboxgl.Map({
   style: "mapbox://styles/mapbox/navigation-day-v1",
   center: [76.69812, 9.09096],
   zoom: 7.61,
+  pitch: 25,
   scrollZoom: true,
 });
 

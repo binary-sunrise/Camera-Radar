@@ -65,7 +65,7 @@
     height: 100%;
     overflow: auto;
     padding-bottom: 60px;
-    margin-top: 60px;
+    padding-top: 60px;
     scroll-margin-top: 60px;
   }
 
@@ -95,7 +95,7 @@
   }
 
   .listings .item.active {
-    background-color: #f8f8f8;
+    background-color: #e1f5e4;
   }
 
   ::-webkit-scrollbar {
@@ -158,7 +158,7 @@
   .mapboxgl-popup-content h4 {
       margin: 0;
       padding: 10px;
-      font-weight: 400;
+      font-weight: 200;
   }
 
   .mapboxgl-popup-content div {

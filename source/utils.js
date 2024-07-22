@@ -7,7 +7,8 @@ export const flytoLocation = (location) => {
 
     map.flyTo({
         center :location.geometry.coordinates,
-        zoom :15
+        zoom :15,
+        pitch: 25
     });
 
 }

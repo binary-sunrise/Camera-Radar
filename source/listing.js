@@ -1,6 +1,6 @@
 
 import { locations } from '../data/AI_camera.js';
-import {flytoLocation ,createPopup ,fitMapBounds } from './utils.js'
+import {flytoLocation ,createPopup ,fitMapBounds ,scrollIntoView} from './utils.js'
 
 
 
@@ -89,8 +89,9 @@ export const sortList = (mylocation) => {
   }
 
   fitMapBounds(locations, mylocation);
-  createPopup(locations.features[0]);  
-};
+  createPopup(locations.features[0]);
+  scrollIntoView(locations.features[0]);
+};  
 
 
 
